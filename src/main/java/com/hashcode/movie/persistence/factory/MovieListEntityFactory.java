@@ -1,7 +1,7 @@
-package com.hashcode.factory;
+package com.hashcode.movie.persistence.factory;
 
-import com.hashcode.entity.MovieListEntity;
-import com.hashcode.model.MovieList;
+import com.hashcode.movie.persistence.entity.MovieListEntity;
+import com.hashcode.movie.domain.model.MovieList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ public final class MovieListEntityFactory {
         List<MovieListEntity> movieList = new ArrayList<>();
         for(MovieList movies : movieListModel) {
             MovieListEntity movieListEntity = new MovieListEntity();
-            movieListEntity.setMoveiYear(movies.year());
+            movieListEntity.setYear(movies.year());
             movieListEntity.setTitle(movies.title());
             movieListEntity.setStudios(movies.studios());
             movieListEntity.setProducers(movies.producers());

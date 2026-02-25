@@ -1,8 +1,8 @@
-package com.hashcode.service;
+package com.hashcode.movie.domain.service;
 
-import com.hashcode.repository.MovieListRepository;
-import com.hashcode.factory.MovieListEntityFactory;
-import com.hashcode.model.MovieList;
+import com.hashcode.movie.persistence.repository.MovieListRepository;
+import com.hashcode.movie.persistence.factory.MovieListEntityFactory;
+import com.hashcode.movie.domain.model.MovieList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

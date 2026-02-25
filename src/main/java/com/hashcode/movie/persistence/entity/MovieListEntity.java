@@ -1,4 +1,4 @@
-package com.hashcode.entity;
+package com.hashcode.movie.persistence.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -13,9 +13,14 @@ public class MovieListEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Integer moveiYear;
+    @Column(name = "movie_year")
+    private Integer year;
+    @Column(name = "title")
     private String title;
+    @Column(name = "studios")
     private String studios;
+    @Column(name = "producers")
     private String producers;
+    @Column(name = "winner")
     private String winner;
 }

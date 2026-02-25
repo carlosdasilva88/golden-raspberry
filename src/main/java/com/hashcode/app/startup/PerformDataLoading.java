@@ -1,6 +1,7 @@
-package com.hashcode.utils;
+package com.hashcode.app.startup;
 
 
+import com.hashcode.app.csv.CsvLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

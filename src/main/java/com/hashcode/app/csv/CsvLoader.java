@@ -1,10 +1,10 @@
-package com.hashcode.utils;
+package com.hashcode.app.csv;
 
 import com.fasterxml.jackson.databind.MappingIterator;
 import com.fasterxml.jackson.dataformat.csv.CsvMapper;
 import com.fasterxml.jackson.dataformat.csv.CsvSchema;
-import com.hashcode.model.MovieList;
-import com.hashcode.service.MovieListService;
+import com.hashcode.movie.domain.model.MovieList;
+import com.hashcode.movie.domain.service.MovieListService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
