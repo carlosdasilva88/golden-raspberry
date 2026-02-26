@@ -11,7 +11,7 @@ import org.springframework.http.ResponseEntity;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ProducerAwardControllerTest {
+public class ProducerAwardWithIntervalDtoControllerTest {
 
     @LocalServerPort
     private int port;

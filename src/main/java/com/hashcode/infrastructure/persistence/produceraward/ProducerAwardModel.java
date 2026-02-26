@@ -1,4 +1,4 @@
-package com.hashcode.percistence.movie.entity;
+package com.hashcode.infrastructure.persistence.produceraward;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -7,8 +7,8 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "movie")
-public class MovieListEntity {
+@Table(name = "producer_ward")
+public class ProducerAwardModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,21 +1,21 @@
 package com.hashcode.api.controller;
 
-import com.hashcode.domain.producerawardinterval.model.ProducerAwardResponse;
-import com.hashcode.domain.producerawardinterval.service.ProducerAwardIntervalService;
+import com.hashcode.api.response.ProducerAwardResponse;
+import com.hashcode.application.usecase.GetProducerAwardIntervalUseCase;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ProducerAwardController {
 
-    private final ProducerAwardIntervalService service;
+    private final GetProducerAwardIntervalUseCase getProducerAwardIntervalUseCase;
 
-    public ProducerAwardController(ProducerAwardIntervalService service) {
-        this.service = service;
+    public ProducerAwardController(GetProducerAwardIntervalUseCase getProducerAwardIntervalUseCase) {
+        this.getProducerAwardIntervalUseCase = getProducerAwardIntervalUseCase;
     }
 
     @GetMapping("/producers/interval")
     public ProducerAwardResponse getProducerAwardIntervals() {
-        return service.executeAnalysis();
+        return getProducerAwardIntervalUseCase.execute();
     }
 }
