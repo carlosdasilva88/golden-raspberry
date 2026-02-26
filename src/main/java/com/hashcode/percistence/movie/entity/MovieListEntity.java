@@ -1,4 +1,4 @@
-package com.hashcode.movie.persistence.entity;
+package com.hashcode.percistence.movie.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -22,5 +22,5 @@ public class MovieListEntity {
     @Column(name = "producers")
     private String producers;
     @Column(name = "winner")
-    private String winner;
+    private Boolean winner;
 }

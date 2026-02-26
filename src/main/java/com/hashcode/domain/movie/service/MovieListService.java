@@ -1,8 +1,8 @@
-package com.hashcode.movie.domain.service;
+package com.hashcode.domain.movie.service;
 
-import com.hashcode.movie.persistence.repository.MovieListRepository;
-import com.hashcode.movie.persistence.factory.MovieListEntityFactory;
-import com.hashcode.movie.domain.model.MovieList;
+import com.hashcode.percistence.movie.repository.MovieListRepository;
+import com.hashcode.percistence.movie.factory.MovieListEntityFactory;
+import com.hashcode.domain.movie.model.MovieList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,5 +21,9 @@ public class MovieListService {
     public void save(List<MovieList> movieList) {
         repository.saveAll(MovieListEntityFactory.build(movieList));
         log.info("Dados do CSV persistidos com sucesso.");
+    }
+
+    public List<MovieList> getAllMovies() {
+        return MovieListEntityFactory.buildEntityToModel(repository.findAll());
     }
 }
