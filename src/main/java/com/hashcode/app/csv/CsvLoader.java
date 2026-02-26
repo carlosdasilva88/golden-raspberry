@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
@@ -39,14 +38,14 @@ public class CsvLoader {
 
     public void run() throws IOException {
         Path path = Paths.get(csvFilePath);
-        this.loadFile(path);
+        loadFile(path);
     }
 
     private void loadFile(Path path) {
         log.info("Leitura do arquivo csv {} inicializada", path);
-        List<MovieList> movieList = this.readCsv(path);
+        List<MovieList> movieList = readCsv(path);
         log.info("Normalizando os dados");
-        List<MovieList> normalizedMovieList = this.normalizeData(movieList);
+        List<MovieList> normalizedMovieList = normalizeData(movieList);
         log.info("Persistindo os dados");
         movieListService.save(normalizedMovieList);
     }

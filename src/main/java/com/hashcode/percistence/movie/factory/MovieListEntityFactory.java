@@ -1,7 +1,7 @@
 package com.hashcode.percistence.movie.factory;
 
-import com.hashcode.percistence.movie.entity.MovieListEntity;
 import com.hashcode.domain.movie.model.MovieList;
+import com.hashcode.percistence.movie.entity.MovieListEntity;
 
 import java.util.ArrayList;
 import java.util.List;
