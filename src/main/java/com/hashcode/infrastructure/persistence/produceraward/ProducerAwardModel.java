@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name = "producer_ward")
+@Table(name = "producer_award")
 public class ProducerAwardModel {
 
     @Id
