@@ -10,8 +10,10 @@ import com.hashcode.infrastructure.persistence.produceraward.ProducerAwardReposi
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -36,6 +38,12 @@ public class LoadAwardFromCsvUseCase {
         producerAwardRepository.saveAll(ProducerAwardModelFactory.build(producerAwardDtoListNormalized));
     }
 
+    public void execute(MultipartFile file) {
+        List<ProducerAwardCsvDto> producerAwardCsvDtoList = readCsvFromWeb(file);
+        List<ProducerAwardDto> producerAwardDtoListNormalized = normalizeData(producerAwardCsvDtoList);
+        producerAwardRepository.saveAll(ProducerAwardModelFactory.build(producerAwardDtoListNormalized));
+    }
+
     private List<ProducerAwardDto> normalizeData(List<ProducerAwardCsvDto> movieList) {
         List<ProducerAwardDto> response = new ArrayList<>();
         for(ProducerAwardCsvDto movie : movieList) {
@@ -50,6 +58,21 @@ public class LoadAwardFromCsvUseCase {
             }
         }
         return response;
+    }
+
+    private List<ProducerAwardCsvDto> readCsvFromWeb(MultipartFile file) {
+        CsvMapper csvMapper = new CsvMapper();
+        CsvSchema csvSchema = CsvSchema.emptySchema().withHeader().withColumnSeparator(';');
+        try (Reader reader = new InputStreamReader(file.getInputStream())){
+            MappingIterator<ProducerAwardCsvDto> mappingIterator = csvMapper
+                    .readerFor(ProducerAwardCsvDto.class)
+                    .with(csvSchema)
+                    .readValues(reader);
+            return mappingIterator.readAll();
+        } catch (IOException e) {
+            log.error("Erro ao processar arquivo CSV: {}", file.getName(), e);
+            throw new RuntimeException(e);
+        }
     }
 
     private List<ProducerAwardCsvDto> readCsv(Path path) {

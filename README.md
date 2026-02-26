@@ -29,4 +29,5 @@ API em Spring Boot que carrega um CSV com indicações ou vencedores da categori
 - A aplicação inicia por padrão em http://localhost:8080
 - O endpoint principal está no controlador ProducerAwardController.
   - Acesse http://localhost:8080//producers/interval para listar os produtores com menor e maior intervalo de vitórias
+  - Para alimentar a tabela com novos dados, você pode chamar o endpoint http://localhost:8080/producers/upload?file passando o novo arquivo csv
 - Para acessar o banco de dados http://localhost:8080/h2-console e informar os dados que estão no arquivo application.properties.
