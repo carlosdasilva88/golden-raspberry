@@ -6,8 +6,8 @@ public final class ProducerAwardFactory {
         ProducerAward producerAward = new ProducerAward();
         producerAward.setProducer(producer);
         producerAward.setInterval(interval);
-        producerAward.setPreviousYearWin(previousYearWin);
-        producerAward.setFollowingYearWin(followingYearWin);
+        producerAward.setPreviousWin(previousYearWin);
+        producerAward.setFollowingWin(followingYearWin);
         return producerAward;
     }
 }

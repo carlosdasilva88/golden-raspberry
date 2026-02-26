@@ -29,7 +29,7 @@ public class ProducerAwardControllerTest {
                 .contains("max")
                 .contains("producer")
                 .contains("interval")
-                .contains("previousYearWin")
-                .contains("followingYearWin");
+                .contains("previousWin")
+                .contains("followingWin");
     }
 }

@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 public class ProducerAward {
     String producer;
     Integer interval;
-    Integer previousYearWin;
-    Integer followingYearWin;
+    Integer previousWin;
+    Integer followingWin;
 }
