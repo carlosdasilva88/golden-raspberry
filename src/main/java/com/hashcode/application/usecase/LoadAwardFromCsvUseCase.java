@@ -38,17 +38,19 @@ public class LoadAwardFromCsvUseCase {
 
     private List<ProducerAwardDto> normalizeData(List<ProducerAwardCsvDto> movieList) {
         List<ProducerAwardDto> response = new ArrayList<>();
-        for(ProducerAwardCsvDto movie : movieList) {
-            List<String> producers = Arrays.stream(movie.producers().split(",| and "))
-                    .map(String::trim)
-                    .filter(producer -> !producer.isBlank())
-                    .collect(Collectors.toList());
-
-            for (String producer : producers) {
-                Boolean isWinner = "yes".equals(movie.winner());
-                response.add(new ProducerAwardDto(movie.year(), movie.title(), movie.studios(), producer, isWinner));
-            }
-        }
+        movieList.stream()
+                .flatMap(movie -> Arrays.stream(movie.producers().split(",| and "))
+                        .map(String::trim)
+                        .filter(producer -> !producer.isBlank())
+                        .map(producer -> new ProducerAwardDto(
+                                movie.year(),
+                                movie.title(),
+                                movie.studios(),
+                                producer,
+                                "yes".equals(movie.winner())
+                        ))
+                )
+                .forEach(response::add);
         return response;
     }
 

@@ -23,9 +23,9 @@ public class GetProducerAwardIntervalUseCase {
     }
 
     public ProducerAwardResponse execute() {
-        IntervalCalculateEntity intervalCalculate = new IntervalCalculateEntity();
         List<ProducerAwardDto> producerAwardDtoList = getAllProducersAward();
         Map<String, List<ProducerAwardDto>> producersWithMultipleWins = groupProducersWithMultipleWins(producerAwardDtoList);
+        IntervalCalculateEntity intervalCalculate = new IntervalCalculateEntity();
         intervalCalculate.calculateInterval(producersWithMultipleWins);
         return buildProducersAwardResult(intervalCalculate.getProducersInterval(false), intervalCalculate.getProducersInterval(true));
     }
