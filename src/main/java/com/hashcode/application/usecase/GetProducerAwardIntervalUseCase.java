@@ -1,9 +1,9 @@
 package com.hashcode.application.usecase;
 
-import com.hashcode.application.dto.ProducerAwardDto;
-import com.hashcode.domain.entity.IntervalCalculateEntity;
-import com.hashcode.application.dto.ProducerAwardWithIntervalDto;
 import com.hashcode.api.response.ProducerAwardResponse;
+import com.hashcode.application.dto.ProducerAwardDto;
+import com.hashcode.application.dto.ProducerAwardWithIntervalDto;
+import com.hashcode.domain.entity.IntervalCalculateEntity;
 import com.hashcode.infrastructure.persistence.produceraward.ProducerAwardModelFactory;
 import com.hashcode.infrastructure.persistence.produceraward.ProducerAwardRepository;
 import org.springframework.stereotype.Component;
