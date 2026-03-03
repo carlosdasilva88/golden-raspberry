@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+
 @RestController
 public class ProducerAwardController {
 
@@ -21,14 +23,9 @@ public class ProducerAwardController {
         this.loadAwardFromCsvUseCase = loadAwardFromCsvUseCase;
     }
 
-    @GetMapping("/producers/interval")
+    @GetMapping("/producers/award-interval")
     public ProducerAwardResponse getProducerAwardIntervals() {
         return getProducerAwardIntervalUseCase.execute();
     }
 
-    @PostMapping("/producers/upload")
-    public ResponseEntity<?> uploadFile(@RequestParam("file") MultipartFile file) {
-        loadAwardFromCsvUseCase.execute(file);
-        return  ResponseEntity.ok("Arquivo recebido");
-    }
 }

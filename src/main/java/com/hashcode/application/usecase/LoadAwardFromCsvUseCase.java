@@ -10,13 +10,11 @@ import com.hashcode.infrastructure.persistence.produceraward.ProducerAwardReposi
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -32,14 +30,8 @@ public class LoadAwardFromCsvUseCase {
         this.producerAwardRepository = producerAwardRepository;
     }
 
-    public void execute(Path path) {
-        List<ProducerAwardCsvDto> producerAwardCsvDtoList = readCsv(path);
-        List<ProducerAwardDto> producerAwardDtoListNormalized = normalizeData(producerAwardCsvDtoList);
-        producerAwardRepository.saveAll(ProducerAwardModelFactory.build(producerAwardDtoListNormalized));
-    }
-
-    public void execute(MultipartFile file) {
-        List<ProducerAwardCsvDto> producerAwardCsvDtoList = readCsvFromWeb(file);
+    public void execute(InputStream input) {
+        List<ProducerAwardCsvDto> producerAwardCsvDtoList = readCsv(input);
         List<ProducerAwardDto> producerAwardDtoListNormalized = normalizeData(producerAwardCsvDtoList);
         producerAwardRepository.saveAll(ProducerAwardModelFactory.build(producerAwardDtoListNormalized));
     }
@@ -60,32 +52,17 @@ public class LoadAwardFromCsvUseCase {
         return response;
     }
 
-    private List<ProducerAwardCsvDto> readCsvFromWeb(MultipartFile file) {
+    private List<ProducerAwardCsvDto> readCsv(InputStream input) {
         CsvMapper csvMapper = new CsvMapper();
         CsvSchema csvSchema = CsvSchema.emptySchema().withHeader().withColumnSeparator(';');
-        try (Reader reader = new InputStreamReader(file.getInputStream())){
+        try (Reader reader = new InputStreamReader(input)){
             MappingIterator<ProducerAwardCsvDto> mappingIterator = csvMapper
                     .readerFor(ProducerAwardCsvDto.class)
                     .with(csvSchema)
                     .readValues(reader);
             return mappingIterator.readAll();
         } catch (IOException e) {
-            log.error("Erro ao processar arquivo CSV: {}", file.getName(), e);
-            throw new RuntimeException(e);
-        }
-    }
-
-    private List<ProducerAwardCsvDto> readCsv(Path path) {
-        CsvMapper csvMapper = new CsvMapper();
-        CsvSchema csvSchema = CsvSchema.emptySchema().withHeader().withColumnSeparator(';');
-        try (Reader reader = Files.newBufferedReader(path)){
-            MappingIterator<ProducerAwardCsvDto> mappingIterator = csvMapper
-                    .readerFor(ProducerAwardCsvDto.class)
-                    .with(csvSchema)
-                    .readValues(reader);
-            return mappingIterator.readAll();
-        } catch (IOException e) {
-            log.error("Erro ao processar arquivo CSV: {}", path, e);
+            log.error("Erro ao processar arquivo CSV", e);
             throw new RuntimeException(e);
         }
     }

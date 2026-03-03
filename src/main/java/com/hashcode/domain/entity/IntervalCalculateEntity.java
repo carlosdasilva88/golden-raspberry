@@ -22,25 +22,19 @@ public class IntervalCalculateEntity {
         });
     }
 
-    public List<ProducerAwardWithIntervalDto> getProducersWithMinInterval() {
-        int minInterval = producerAwardWithIntervalDtoIntevalList.stream()
-                .mapToInt(ProducerAwardWithIntervalDto::interval)
-                .min()
-                .orElse(0);
-
-        return producerAwardWithIntervalDtoIntevalList.stream()
-                .filter(p -> p.interval() == minInterval)
-                .toList();
-    }
-
-    public List<ProducerAwardWithIntervalDto> getProducersWithMaxInterval() {
-        int maxInterval = producerAwardWithIntervalDtoIntevalList.stream()
-                .mapToInt(ProducerAwardWithIntervalDto::interval)
-                .max()
-                .orElse(0);
-
-        return producerAwardWithIntervalDtoIntevalList.stream()
-                .filter(p -> p.interval() == maxInterval)
-                .toList();
+    public List<ProducerAwardWithIntervalDto> getProducersInterval(boolean findMaxInterval) {
+         int reference = findMaxInterval ? Integer.MIN_VALUE : Integer.MAX_VALUE;
+            List<ProducerAwardWithIntervalDto> result = new ArrayList<>();
+            for (ProducerAwardWithIntervalDto producer : producerAwardWithIntervalDtoIntevalList) {
+                int current = producer.interval();
+                if ((findMaxInterval && current > reference) || (!findMaxInterval && current < reference)) {
+                    reference = current;
+                    result.clear();
+                    result.add(producer);
+                } else if (current == reference) {
+                    result.add(producer);
+                }
+            }
+            return result;
     }
 }
